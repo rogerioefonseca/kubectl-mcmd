@@ -1,0 +1,5 @@
+#!/bin/bash
+command=$1
+grep=$2
+
+kubectl get pods -A --field-selector=status.phase=Running  | grep $grep | awk -v cmd="$command" -F ' ' '{print "kubectl exec -n "$1 " "$2 " " cmd}' | bash
